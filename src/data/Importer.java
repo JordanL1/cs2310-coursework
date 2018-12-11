@@ -33,7 +33,6 @@ public class Importer {
 	
 	public Importer() {
 		try {
-			runningOrder = makeDataOneCol(RUNNING_ORDER);
 			groups = makeDataTwoCols(DANCE_GROUPS);
 			dances = makeDataTwoCols(DANCES);
 		}
@@ -50,8 +49,14 @@ public class Importer {
 		return dances;
 	}
 	
-	public ArrayList<String> getRunningOrder() {
-		return runningOrder;
+	public ArrayList<String> getRunningOrder(String file) {
+		try {
+			return makeDataOneCol(file);
+		}
+		catch (IOException e) {
+			System.out.println("Could not import data: " + e.getMessage());
+			return null;
+		}
 	}
 	
 	/**

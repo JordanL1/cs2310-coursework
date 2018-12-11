@@ -16,7 +16,7 @@ public class testImporter {
 		Importer importer = new Importer();
 		LinkedHashMap<String, Set<String>> groups = importer.getDanceGroups();
 		LinkedHashMap<String, Set<String>> dances = importer.getDances();
-		List<String> runningOrder = importer.getRunningOrder();
+		List<String> runningOrder = importer.getRunningOrder("data/danceShowData_runningOrder.csv");
 		
 		for (String key : groups.keySet()) {
 			System.out.println(key + groups.get(key).toString());
