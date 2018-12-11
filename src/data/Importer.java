@@ -1,14 +1,12 @@
 package data;
 
 import java.util.Set;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.FileNotFoundException;
 
 /**
  * The Importer class is used to read relevant data from CSV files defined as static constants.
