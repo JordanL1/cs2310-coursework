@@ -4,6 +4,15 @@ import java.util.LinkedHashSet;
 import java.util.TreeSet;
 import java.util.Set;
 
+/**
+ * The Dance class models a single dance record. It stores the dance title and list
+ * of performers by name. 
+ * 
+ * @author Jordan Lees
+ * @version 10/12/2018
+ *
+ */
+
 public class Dance {
 	
 	private String title;
@@ -14,20 +23,33 @@ public class Dance {
 		performers = new LinkedHashSet<String>();
 	}
 	
+	/**
+	 * Add a single performer to the dance.
+	 * 
+	 * @param name of performer
+	 */
 	public void add (String name) {
 		performers.add(name);
 	}
 	
+	/**
+	 * Add a set of performers (e.g. a Dance Group) to the dance.
+	 * 
+	 * @param names a Set of names as strings
+	 */
 	public void addAll(Set<String> names) {
 		performers.addAll(names);
 	}
 	
+	/**
+	 * @return a collection of all the performers in this dance, in no particular order
+	 */
 	public LinkedHashSet<String> getPerformers() {
 		return performers;
 	}
 	
 	/**
-	 * @return a collection of all performers in this dance, ordered by natural ordering (alphabetical).
+	 * @return a collection of all performers in this dance, sorted by natural ordering (alphabetical).
 	 */
 	public TreeSet<String> getSortedPerformers() {
 		return new TreeSet<String>(performers);

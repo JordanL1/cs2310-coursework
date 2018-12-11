@@ -10,6 +10,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+/**
+ * The Importer class is used to read relevant data from CSV files defined as static constants.
+ * Methods exist for returning collections of data in a usable format.
+ * 
+ * @author Jordan Lees
+ * @version 10/12/2018
+ */
+
 public class Importer {
 
 	private static final String DANCES = "data/danceShowData_dances.csv";
@@ -55,6 +63,14 @@ public class Importer {
 		return danceGroups;
 	}
 	
+	/**
+	 * Read the CSV file defined as a static constant and produce a data structure containing
+	 * dance titles and their associated performers (which may be either performer names or names
+	 * of dance groups).
+	 * 
+	 * @return Map of dance titles (key) with their set of performers (value).
+	 * @throws IOException
+	 */
 	public LinkedHashMap<String, Set<String>> getDances() throws IOException {
 		BufferedReader in;
 		Scanner scan;
