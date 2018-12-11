@@ -64,7 +64,7 @@ public class Importer {
 		while(in.ready()) {
 			String key;
 			LinkedHashSet<String> set = new LinkedHashSet<String>();
-			scan = new Scanner(in.readLine()).useDelimiter(", |\\t\\s*");
+			scan = new Scanner(in.readLine()).useDelimiter(",\\s*|\\t\\s*");
 			
 			key = scan.next();
 			
