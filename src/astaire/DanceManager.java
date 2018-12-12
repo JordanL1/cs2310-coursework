@@ -50,16 +50,27 @@ public class DanceManager implements Controller {
 
 	@Override
 	public String listAllDancersIn(String dance) {
-		System.out.println(dances.get(dance).getSortedPerformers());
-		return null;
+		Dance selectedDance = dances.get(dance);
+		
+		if (selectedDance != null) {
+			StringBuilder sb = new StringBuilder(selectedDance.getTitle() + ": ");
+			sb.append(selectedDance.getSortedPerformers());
+			sb.append("\n");
+			return sb.toString();
+		}
+
+		return "Dance does not exist.";
 	}
 
 	@Override
 	public String listAllDancesAndPerformers() {
+		StringBuilder sb = new StringBuilder();
+		
 		for (String title : dances.keySet()) {
-			listAllDancersIn(title);
+			sb.append(listAllDancersIn(title));
 		}
-		return null;
+		
+		return sb.toString();
 	}
 
 	@Override
@@ -84,9 +95,15 @@ public class DanceManager implements Controller {
 			}
 			
 			if (overlaps.size() > 0) {
-				return "Running order:\n" + runningOrder.toString() + "\n not feasible because...\n"
-						+ overlaps.toString();
-			}
+				StringBuilder sb = new StringBuilder("Running order:\n" + runningOrder.toString() +
+						"\n not feasible because...\n");
+				
+				for (String line : overlaps) {
+					sb.append(line + "\n");
+				}
+				
+				return sb.toString();
+			}	
 			else {
 				return "Running order feasible:\n" + runningOrder.toString();
 			}

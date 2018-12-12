@@ -11,14 +11,14 @@ public class testDanceManager {
 	public void testListAllDancersIn() {
 		DanceManager dm = new DanceManager();
 		
-		dm.listAllDancersIn("Let's Pretend");
+		System.out.println(dm.listAllDancersIn("Let's Pretend"));
 	}
 	
 	@Test
 	public void testListAllDancesAndPerformers() {
 		DanceManager dm = new DanceManager();
 		
-		dm.listAllDancesAndPerformers();
+		System.out.println(dm.listAllDancesAndPerformers());
 	}
 	
 	@Test
