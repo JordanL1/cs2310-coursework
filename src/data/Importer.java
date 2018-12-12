@@ -41,14 +41,26 @@ public class Importer {
 		}
 	}
 	
+	/**
+	 * @return a map where Key is the dance group name and Value is the set of members.
+	 */
 	public LinkedHashMap<String, Set<String>> getDanceGroups() {
 		return groups;
 	}
 	
+	/**
+	 * @return a map where Key is the dance title and Value is the set of performers.
+	 */
 	public LinkedHashMap<String, Set<String>> getDances() {
 		return dances;
 	}
 	
+	/**
+	 * Get a running order of dances from a CSV file.
+	 * 
+	 * @param file filename containing running order (single-column CSV file)
+	 * @return ArrayList of dances if successful; otherwise null.
+	 */
 	public ArrayList<String> getRunningOrder(String file) {
 		try {
 			return makeDataOneCol(file);
@@ -65,7 +77,7 @@ public class Importer {
 	 * comma-separated values which will be contained in the set.
 	 * 
 	 * @param file Filename of CSV to import from
-	 * @return Map of dance group names (key) with their set of performers (value).
+	 * @return Map of strings (key) and sets of strings (value).
 	 * @throws IOException
 	 */	
 	private LinkedHashMap<String, Set<String>> makeDataTwoCols(String file) throws IOException {
@@ -96,6 +108,15 @@ public class Importer {
 		return data;
 	}
 	
+	/**
+	 * Read the chosen CSV file and produce an ArrayList of strings.
+	 * CSV must be formatted as either a single column or tab-separated columns. Only 
+	 * the first column is read.
+	 * 
+	 * @param file Filename of CSV to import from
+	 * @return ArrayList of strings from the first column
+	 * @throws IOException
+	 */	
 	private ArrayList<String> makeDataOneCol(String file) throws IOException {
 		BufferedReader in;
 		Scanner scan;
