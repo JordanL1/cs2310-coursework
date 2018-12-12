@@ -23,6 +23,10 @@ public class Dance {
 		performers = new LinkedHashSet<String>();
 	}
 	
+	public String getTitle() {
+		return title;
+	}
+	
 	/**
 	 * Add a single performer to the dance.
 	 * 
@@ -63,9 +67,9 @@ public class Dance {
 	 * @param comparison A set of performer names to compare
 	 * @return True if any performer in set comparison also exists in this dance
 	 */
-	public Boolean doPerformersOverlap(Set<String> comparison) {
+	public Boolean doPerformersOverlap(Dance comparison) {
 		Set<String> performersCloned = (Set<String>) performers.clone();
-		performersCloned.retainAll(comparison);
+		performersCloned.retainAll(comparison.getPerformers());
 		
 		return (!performersCloned.isEmpty());
 	}
