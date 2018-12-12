@@ -6,7 +6,6 @@ import org.junit.Test;
 import data.Importer;
 import java.util.LinkedHashMap;
 import java.util.Set;
-import java.util.HashSet;
 import java.util.List;
 
 public class testImporter {
