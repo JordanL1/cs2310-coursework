@@ -67,11 +67,11 @@ public class Dance {
 	 * @param comparison A set of performer names to compare
 	 * @return True if any performer in set comparison also exists in this dance
 	 */
-	public Boolean doPerformersOverlap(Dance comparison) {
+	public Set<String> doPerformersOverlap(Dance comparison) {
 		Set<String> performersCloned = (Set<String>) performers.clone();
 		performersCloned.retainAll(comparison.getPerformers());
 		
-		return (!performersCloned.isEmpty());
+		return (performersCloned);
 	}
 
 }

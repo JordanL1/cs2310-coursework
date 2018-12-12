@@ -65,32 +65,30 @@ public class DanceManager implements Controller {
 	@Override
 	public String checkFeasibilityOfRunningOrder(String filename, int gaps) {
 		ArrayList<String> runningOrder = importer.getRunningOrder(filename);
-		ArrayList<Set<String>> overlaps = new ArrayList<Set<String>>();
+		ArrayList<String> overlaps = new ArrayList<String>();
 		
 		if (runningOrder != null) {
 			for (int i = 0; i < runningOrder.size(); i++) {
 				Dance current = dances.get(runningOrder.get(i));
-				LinkedHashSet<String> clashes = new LinkedHashSet<String>();
 				
 				for (int j = 1; j <= gaps && i + j < runningOrder.size(); j++) {
 					Dance nextj = dances.get(runningOrder.get(i + j));
+					Set<String> anyOverlaps = current.doPerformersOverlap(nextj);
 					
-					if (current.doPerformersOverlap(nextj)) {
-						clashes.add(nextj.getTitle());
+					if (!anyOverlaps.isEmpty()) {
+						overlaps.add(current.getTitle() + " and " + nextj.getTitle() + 
+								" both require performers: " + anyOverlaps.toString());
+						
 					}
-				}
-				
-				if (clashes.size() > 0) {
-					clashes.add(current.getTitle());
-					overlaps.add(clashes);
 				}
 			}
 			
 			if (overlaps.size() > 0) {
-				return overlaps.toString();
+				return "Running order:\n" + runningOrder.toString() + "\n not feasible because...\n"
+						+ overlaps.toString();
 			}
 			else {
-				return "Running order feasible: " + runningOrder.toString();
+				return "Running order feasible:\n" + runningOrder.toString();
 			}
 		}
 		
