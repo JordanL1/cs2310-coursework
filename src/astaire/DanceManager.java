@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.TreeSet;
 
 /**
  * TODO: Set data structure default sizes
@@ -65,8 +66,9 @@ public class DanceManager implements Controller {
 	@Override
 	public String listAllDancesAndPerformers() {
 		StringBuilder sb = new StringBuilder();
+		TreeSet<String> sortedDances = new TreeSet<String>(dances.keySet());
 		
-		for (String title : dances.keySet()) {
+		for (String title : sortedDances) {
 			sb.append(listAllDancersIn(title));
 		}
 		
@@ -114,7 +116,7 @@ public class DanceManager implements Controller {
 
 	@Override
 	public String generateRunningOrder(int gaps) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
