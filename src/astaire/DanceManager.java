@@ -5,6 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 /**
  * TODO: Set data structure default sizes
@@ -62,8 +64,37 @@ public class DanceManager implements Controller {
 
 	@Override
 	public String checkFeasibilityOfRunningOrder(String filename, int gaps) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<String> runningOrder = importer.getRunningOrder(filename);
+		ArrayList<Set<String>> overlaps = new ArrayList<Set<String>>();
+		
+		if (runningOrder != null) {
+			for (int i = 0; i < runningOrder.size(); i++) {
+				Dance current = dances.get(runningOrder.get(i));
+				LinkedHashSet<String> clashes = new LinkedHashSet<String>();
+				
+				for (int j = 1; j <= gaps && i + j < runningOrder.size(); j++) {
+					Dance nextj = dances.get(runningOrder.get(i + j));
+					
+					if (current.doPerformersOverlap(nextj)) {
+						clashes.add(nextj.getTitle());
+					}
+				}
+				
+				if (clashes.size() > 0) {
+					clashes.add(current.getTitle());
+					overlaps.add(clashes);
+				}
+			}
+			
+			if (overlaps.size() > 0) {
+				return overlaps.toString();
+			}
+			else {
+				return "Running order feasible: " + runningOrder.toString();
+			}
+		}
+		
+		return "Error loading running order.";
 	}
 
 	@Override
