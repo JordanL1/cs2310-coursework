@@ -4,11 +4,8 @@ import data.Importer;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.TreeSet;
-import java.util.ArrayDeque;
 
 /**
  * TODO: Set data structure default sizes
@@ -67,7 +64,8 @@ public class DanceManager implements Controller {
 	@Override
 	public String listAllDancesAndPerformers() {
 		StringBuilder sb = new StringBuilder();
-		TreeSet<String> sortedDances = new TreeSet<String>(dances.keySet());
+		ArrayList<String> sortedDances = new ArrayList<String>(dances.keySet());
+		sortedDances.sort(null);
 		
 		for (String title : sortedDances) {
 			sb.append(listAllDancersIn(title));
