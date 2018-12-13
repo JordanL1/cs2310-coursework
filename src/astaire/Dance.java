@@ -16,11 +16,11 @@ import java.util.Set;
 public class Dance {
 	
 	private String title;
-	private LinkedHashSet<String> performers;
+	private TreeSet<String> performers;
 	
 	public Dance(String title) {
 		this.title = title;
-		performers = new LinkedHashSet<String>();
+		performers = new TreeSet<String>();
 	}
 	
 	public String getTitle() {
@@ -49,14 +49,14 @@ public class Dance {
 	 * @return a collection of all the performers in this dance, in no particular order
 	 */
 	public LinkedHashSet<String> getPerformers() {
-		return performers;
+		return new LinkedHashSet<String>(performers);
 	}
 	
 	/**
 	 * @return a collection of all performers in this dance, sorted by natural ordering (alphabetical).
 	 */
 	public TreeSet<String> getSortedPerformers() {
-		return new TreeSet<String>(performers);
+		return performers;
 	}
 	
 	
@@ -68,7 +68,7 @@ public class Dance {
 	 * @return True if any performer in set comparison also exists in this dance
 	 */
 	public Set<String> doPerformersOverlap(Dance comparison) {
-		Set<String> performersCloned = (Set<String>) performers.clone();
+		Set<String> performersCloned = (Set<String>) getPerformers().clone();
 		performersCloned.retainAll(comparison.getPerformers());
 		
 		return (performersCloned);
