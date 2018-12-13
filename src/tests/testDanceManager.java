@@ -29,5 +29,12 @@ public class testDanceManager {
 		
 		System.out.println(dm.checkFeasibilityOfRunningOrder("data/danceShowData_runningOrder.csv", 2));
 	}
+	
+	@Test
+	public void testGenerateRunningOrder() {
+		DanceManager dm = new DanceManager();
+		
+		System.out.println(dm.generateRunningOrder(2));
+	}
 
 }

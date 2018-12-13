@@ -8,6 +8,7 @@ import java.util.SortedSet;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.TreeSet;
+import java.util.ArrayDeque;
 
 /**
  * TODO: Set data structure default sizes
@@ -116,8 +117,71 @@ public class DanceManager implements Controller {
 
 	@Override
 	public String generateRunningOrder(int gaps) {
+		ArrayList<Dance> order = makeRunningOrder(gaps);
+		StringBuilder sb = new StringBuilder();
+		
+		if (order != null) {
+			sb.append("Running order found!\n");
+			
+			for (Dance d : order) {
+				sb.append(listAllDancersIn(d.getTitle()));
+			}
+		}
+		else {
+			sb.append("Could not find a running order.\n");
+		}
+		
+		return sb.toString();	
+	}
+	
+	private ArrayList<Dance> makeRunningOrder(int gaps) {
+		LinkedHashSet<String> subSet = new LinkedHashSet<String>(importer.getRunningOrder("data/danceShowData_runningOrder.csv"));
+		ArrayList<Dance> order;
+		
+		for (String title : subSet) {
+			Dance first = dances.get(title);
+			LinkedHashSet<String> subSetCloned = (LinkedHashSet<String>) subSet.clone();
+			order = new ArrayList<Dance>();
+			order.add(first);
+			subSetCloned.remove(first.getTitle());
+			Boolean canContinue = true;
+			
+			while (canContinue && !subSetCloned.isEmpty()) {
+				
+				canContinue = true;
+				int sizeBefore = subSetCloned.size();
+				Set<String> removals = new LinkedHashSet<String>();
+				
+				for (String currentTitle : subSetCloned) {
+					Dance current = dances.get(currentTitle);
+					Boolean match = true;
+					
+					for (int i = -1; i + order.size() >= 0 && Math.abs(i) <= gaps; i--) {
+						if (!current.doPerformersOverlap(order.get(i + order.size())).isEmpty()) {
+							match = false;
+						}
+					}
+					
+					if (match == true) {
+						order.add(current);
+						removals.add(currentTitle);
+						System.out.println(order + "\n" + subSetCloned);
+					}
+				}
+				
+				subSetCloned.removeAll(removals);
+				
+				if (subSetCloned.isEmpty()) {
+					return order;
+				}
+				else if (sizeBefore == subSetCloned.size()) {
+					canContinue = false;
+				}
+			}
+			
+			
+		}
 		
 		return null;
 	}
-
 }
