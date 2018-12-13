@@ -81,6 +81,11 @@ public class DanceManager implements Controller {
 		ArrayList<String> runningOrder = importer.getRunningOrder(filename);
 		ArrayList<String> overlaps = new ArrayList<String>();
 		
+		/*
+		 * For each item in the proposed running order, check the next (gaps) number
+		 * of items in the sequence for overlapping performers. If any performers overlap,
+		 * add a string to the overlaps set.
+		 */
 		if (runningOrder != null) {
 			for (int i = 0; i < runningOrder.size(); i++) {
 				Dance current = dances.get(runningOrder.get(i));
@@ -144,6 +149,18 @@ public class DanceManager implements Controller {
 		LinkedHashSet<String> subSet = new LinkedHashSet<String>(importer.getRunningOrder("data/danceShowData_runningOrder.csv"));
 		ArrayList<Dance> order;
 		
+		/*
+		 * Add a random dance from the subset as the first in the list, repeatedly iterate through each 
+		 * item in the subset and check whether there are any overlaps between it and the last 
+		 * (gaps) number of performers. If not, add it to the sequence and remove from the subset.
+		 * 
+		 * Continue until either there are either no items remaining in the subset (in which case,
+		 * return the feasible order) or the length of the subset has not changed after an iteration
+		 * (meaning none of the remaining Dances can be added).
+		 * 
+		 * Repeat this process, starting the order from each item in the subSet, until a solution
+		 * is found or every item from the subset has been tried as the first item.
+		 */
 		for (String title : subSet) {
 			Dance first = dances.get(title);
 			LinkedHashSet<String> subSetCloned = (LinkedHashSet<String>) subSet.clone();
