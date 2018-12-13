@@ -10,14 +10,13 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * TODO: Set default capacities for data structures
  * 
  * The Importer class is used to read relevant data from CSV files defined as static constants.
  * Methods exist for returning collections of data in a usable format. Data is imported when an
  * instance is constructed and can then be retrieved using getters.
  * 
  * @author Jordan Lees
- * @version 10/12/2018
+ * @version 13/12/2018
  */
 
 public class Importer {
@@ -25,6 +24,7 @@ public class Importer {
 	private static final String DANCES = "data/danceShowData_dances.csv";
 	private static final String DANCE_GROUPS = "data/danceShowData_danceGroups.csv";
 	private static final String RUNNING_ORDER = "data/danceShowData_runningOrder.csv";
+	private static final int NUMBER_OF_DANCES = 37;
 	
 	ArrayList<String> runningOrder;
 	LinkedHashMap<String, Set<String>> groups;
@@ -83,7 +83,7 @@ public class Importer {
 	private LinkedHashMap<String, Set<String>> makeDataTwoCols(String file) throws IOException {
 		BufferedReader in;
 		Scanner scan;
-		LinkedHashMap<String, Set<String>> data = new LinkedHashMap<String, Set<String>>();
+		LinkedHashMap<String, Set<String>> data = new LinkedHashMap<String, Set<String>>(50, 0.75f);
 		
 		in = new BufferedReader(new FileReader(file));
 		in.readLine();
@@ -120,7 +120,7 @@ public class Importer {
 	private ArrayList<String> makeDataOneCol(String file) throws IOException {
 		BufferedReader in;
 		Scanner scan;
-		ArrayList<String> data = new ArrayList<String>();
+		ArrayList<String> data = new ArrayList<String>(20);
 		
 		in = new BufferedReader(new FileReader(file));
 		in.readLine();

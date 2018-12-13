@@ -8,24 +8,26 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 /**
- * TODO: Set data structure default sizes
+ * An implementation of Controller to manage the dance system. Data on dances and groups
+ * from the CSV files is imported when the DanceManager is constructed.
+ * 
  * @author Jordan Lees
- * @version 11/12/2018
+ * @version 13/12/2018
  *
  */
 
 public class DanceManager implements Controller {
 	
 	private Importer importer;
-	private LinkedHashMap<String, Set<String>> danceGroups;
-	private LinkedHashMap<String, Dance> dances;
+	private Map<String, Set<String>> danceGroups;
+	private Map<String, Dance> dances;
 	
 	public DanceManager() {
 		importer = new Importer();
 		danceGroups = importer.getDanceGroups();
 		dances = new LinkedHashMap<String, Dance>();
 		
-		LinkedHashMap<String, Set<String>> danceData = importer.getDances();
+		Map<String, Set<String>> danceData = importer.getDances();
 		
 		for (Map.Entry<String, Set<String>> entry : danceData.entrySet()) {
 			String title = entry.getKey();
@@ -132,6 +134,12 @@ public class DanceManager implements Controller {
 		return sb.toString();	
 	}
 	
+	/**
+	 * Generate a running order of Dance instances.
+	 * 
+	 * @param gaps
+	 * @return A feasible running order if it exists; otherwise null.
+	 */
 	private ArrayList<Dance> makeRunningOrder(int gaps) {
 		LinkedHashSet<String> subSet = new LinkedHashSet<String>(importer.getRunningOrder("data/danceShowData_runningOrder.csv"));
 		ArrayList<Dance> order;
@@ -163,7 +171,6 @@ public class DanceManager implements Controller {
 					if (match == true) {
 						order.add(current);
 						removals.add(currentTitle);
-						System.out.println(order + "\n" + subSetCloned);
 					}
 				}
 				
@@ -176,8 +183,6 @@ public class DanceManager implements Controller {
 					canContinue = false;
 				}
 			}
-			
-			
 		}
 		
 		return null;

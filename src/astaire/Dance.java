@@ -9,7 +9,7 @@ import java.util.Set;
  * of performers by name. 
  * 
  * @author Jordan Lees
- * @version 10/12/2018
+ * @version 13/12/2018
  *
  */
 
